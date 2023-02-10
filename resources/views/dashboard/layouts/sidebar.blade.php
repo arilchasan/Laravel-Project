@@ -1,6 +1,25 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  
     <div class="position-sticky pt-3 sidebar-sticky">
         <ul class="nav flex-column">
+          <li class="nav-item" style="display: d-blok p-sm-5">
+            @auth
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+                Selamat Datang, {{ Auth()->user()->name }}
+              </a>
+              
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/">
+                  <i class="fa fa-home" style="width: 30px"></i>
+                    <span data-feather="home" class="align-text-bottom" style="font-weight:700"></span>
+                    Home
+                
+                </a>
+              </li>
+              </ul> 
+            @endauth
+          </li>  
             <li class="nav-item">
                 <div class="flex-row" style="display:inline-flex">
                   
@@ -60,7 +79,26 @@
                         Current month
                     </a>
                     </div>
-            </ul>
-            
+                </li>
+                
+                  </ul> 
+            {{-- <ul class="nav flex-column mb-2 ms-auto fixed-bottom">
+              <li class="nav-item" style="display: d-blok p-sm-5">
+                @auth
+                <li class="nav-item dropup">
+                  <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+                    Hi, {{ Auth()->user()->name }}
+                  </a>
+                  
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/"><i class="bi bi-layout-text-sidebar-reverse">Home</i></a></li>
+                    
+                @endauth
+              </li>   
+                  </ul> --}}
+                  
+                  
+                 
+                    
     </div>
 </nav>

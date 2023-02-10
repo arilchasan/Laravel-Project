@@ -14,7 +14,7 @@ class Gerbong extends Controller
     {
   
         return view('gerbong.about',[
-            "data" => ModelsGerbongs::all()
+            "data" => ModelsGerbongs::paginate(3)
         ]); 
     }
     public function show(ModelsGerbongs $gerbong)

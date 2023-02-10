@@ -13,7 +13,7 @@ class PenumpangController extends Controller
 
         
         return view('Penumpang.all',[
-            "daftar_penumpang" => PenumpangModels::all()
+            "daftar_penumpang" => PenumpangModels::paginate(5)
         ]); 
     }
     public function show(PenumpangModels $penumpang)

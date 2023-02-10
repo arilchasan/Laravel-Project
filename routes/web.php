@@ -89,7 +89,7 @@ Route::group(["prefix" => "/dashboard"],function(){
     });
     //route gruoup penumpang
     Route::group(["prefix" => "/penumpang"],function(){
-        Route::get('/all' ,[DashboarPenumpangController::class,'index']);
+        // Route::get('/all' ,[DashboarPenumpangController::class,'index']);
         Route::get('/detail/{penumpang}' ,[DashboarPenumpangController::class,'show']);
         Route::get('/create',[DashboarPenumpangController::class,'create']);
         Route::post('/add',[DashboarPenumpangController::class,'store']);
@@ -99,7 +99,10 @@ Route::group(["prefix" => "/dashboard"],function(){
 
     });
     //route sidebar  
-    Route::get('/p' ,[DashboardController::class,'p']);
+    
+    Route::get('/search' ,[DashboarPenumpangController::class,'search']);
+    Route::get('/p' ,[DashboarPenumpangController::class,'index']);
+    Route::get('/drop' ,[DashboarPenumpangController::class,'filter']);
     Route::get('/t' ,[DashboardController::class,'t']);
     Route::get('/g' ,[DashboardController::class,'g']);
 });

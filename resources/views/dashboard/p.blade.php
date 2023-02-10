@@ -16,7 +16,43 @@
  
 @endif 
 <table class="table table-light table-striped text-left " >
+  
+  <div class="row">
+    <div class="col-md-2">
     <a href="/dashboard/penumpang/create" class="btn btn-outline-primary" role="button" style="width:120px,height:20px;font-family: 'Montserrat';">Tambah Data</a>
+  </div>
+
+
+  <div class="col-md-10">
+    <div class="row">
+      <form action="/dashboard/p" method="GET">
+       <div class="col-md-4">
+        <select name="tujuan_id" class="form-select">
+          <option selected value="" name="tujuan_id" style="text-align: center" id="tujuan_id">TUJUAN</option>
+         
+          @foreach ($tujuan as $class)
+              @if (request('tujuan_id') == $class->id)          
+                <option name="tujuan_id"  value="{{$class->id}}" selected>{{$class->tujuan}}</option> 
+               @else
+                <option name="tujuan_id"  value="{{$class->id}}">{{$class->tujuan}}</option> 
+                @endif
+          @endforeach
+        
+        </select>
+       </div>
+
+       <div class="col-md-8">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search...." name="search" value="{{request('search')}}" >
+            
+            <div class="col-md-2"><button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button></div>
+          </div>
+
+      </form>
+    </div>
+  </div>
+  
+  
     <br>
   <br>
           <tr class="text-center" style="font-family: 'Poppins';">
@@ -29,8 +65,9 @@
               <th><h5>Action</h5></th>
               
           </tr>
-      </thead>
+          @if ($daftar_penumpang->count())        
       <tbody >
+    
       
           <?php foreach($daftar_penumpang as $penumpang) { ?>
               <tr class="text-center">
@@ -51,6 +88,18 @@
                     <button style="font-family: 'Poppins';" class="btn btn-outline-danger" onclick="return confirm('Yakin Mau Hapus ?')">Hapus</button>
                   </form> 
                   </tr>  
-                              
-                  <?php } ?>
+              
+                <?php } ?>
+          </tbody>
+          @else 
+          <tbody>
+            <tr>
+              <td colspan="6" align="center">Data tidak ditemukan</td>
+            </tr>
+          </tbody>
+          @endif
+        </table>
+        {{ $daftar_penumpang->links('pagination::bootstrap-5')}}  
+              
+                
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
 
-    <h3 class="text-center" style="margin-top: 5px">Daftar Gerbong</h3>
+    <h3 class="text-center" style="margin-top: 30px">Daftar Gerbong</h3>
     
     <table class="table table-light table-striped text-left " >
 
@@ -39,6 +39,9 @@
                     </tr>   --}}
                                 
                     <?php } ?> 
+                    </tbody>
+    </table>
+                    {{ $data->links('pagination::bootstrap-5')}} 
 
 @endsection
 

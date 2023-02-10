@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\DB;
 use App\Models\Gerbong;
 use App\Models\PenumpangModels;
 use App\Models\Tujuan;
+use COM;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,9 +16,17 @@ class DashboardController extends Controller
         return view('dashboard.index', ); 
     }
 
-    public function p()
+    public function p(Request $request)
     {
-        return view('dashboard.p', [ "daftar_penumpang" => PenumpangModels::all() ]); 
+        // if($request->has('cari')){
+        //     $daftar_penumpang = PenumpangModels::where('nama','LIKE','%'.$request->cari.'%')->paginate(5);
+        // }else{
+        //     $daftar_penumpang = PenumpangModels::paginate(5);
+        // }
+       
+        // $daftar_penumpang = PenumpangModels::paginate(5);
+        // return view('dashboard.p', compact('daftar_penumpang'));
+       
     }
     public function t()
     {
@@ -27,9 +37,10 @@ class DashboardController extends Controller
     public function g()
     {
         return view('dashboard.g', [
-            "data" => Gerbong::all(),           
+            "data" => Gerbong::paginate(5),           
         ]); 
     }
     
+  
     
 }

@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
     {
         //   PenumpangModels::factory(5)->create();
 
-         PenumpangModels::factory(10)->create();
-         Gerbong::factory(10)->create();
+         PenumpangModels::factory(30)->create();
+         Gerbong::factory(15)->create();
 
         Tujuan::create([
             'kode' => '1',

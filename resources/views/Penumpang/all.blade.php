@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
 
-    <h3 class="text-center" style="margin-top: 10px">Data Penumpang</h3>
+    <h3 class="text-center" style="margin-top: 30px">Data Penumpang</h3>
      @if (session()->has('succes'))
       <div class="alert alert-success col-lg-12" role="alert">
         {{session ('succes')}}
@@ -48,6 +48,9 @@
                     </tr>  
                                 
                     <?php } ?>
+                  </tbody>
+                </table>
+                {{ $daftar_penumpang->links('pagination::bootstrap-5')}}  
 
 @endsection
 

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
 
-    <h3 class="text-center" style="margin-top: 5px">Daftar Tujuan</h3>
+    <h3 class="text-center" style="margin-top: 30px">Daftar Tujuan</h3>
     
     <table class="table table-light table-striped text-left " >
 

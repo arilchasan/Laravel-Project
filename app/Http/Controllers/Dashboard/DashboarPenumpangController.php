@@ -11,9 +11,14 @@ class DashboarPenumpangController extends Controller
 {
     public function index()
     { 
-        return view('dashboard.p',[
-            "daftar_penumpang" => PenumpangModels::all()
-        ]); 
+        
+       
+        return view('dashboard.p', [
+            "daftar_penumpang" => PenumpangModels::filter(request(['search', 'tujuan_id']))->paginate(5)->appends(request()->only('tujuan_id','search')),
+            "tujuan" => Tujuan::all(),
+        ]);
+
+        // return view('dashboard.p', compact('daftar_penumpang'));
     }
     public function show(PenumpangModels $penumpang)
     {
@@ -72,5 +77,34 @@ class DashboarPenumpangController extends Controller
         // $penumpang = PenumpangModels::find($penumpang);
         // $penumpang->update($request->except(['submit']));
         // return redirect('/Penumpang/all');
+    }
+    public function search()
+    {
+        // function for search name 
+        $search = request()->query('search');
+        
+        if ($search) {
+            // session(['search' => $search]);
+            $daftar_penumpang = PenumpangModels::where('nama','LIKE', "%{$search}%")
+            ->orWhere('no_pendaftaran','LIKE', "%{$search}%")
+            ->orWhere('tujuan_id','LIKE', "%{$search}%")->orWhere('tanggal','LIKE', "%{$search}%")->orWhere('alamat','LIKE', "%{$search}%")
+            ->paginate(5);
+            $daftar_penumpang->withPath('');
+            $daftar_penumpang->appends(request()->all());
+        } else {
+            $daftar_penumpang = PenumpangModels::paginate(5);
+        }
+        return view('dashboard.p', ['daftar_penumpang' => $daftar_penumpang, 'tujuan' => Tujuan::all()]);
+    }
+
+
+    public function scopeFilter($query , array $filters)
+    {
+       if(isset($filters['search']) ? $filters ['search'] : false) {
+        return $query->where('nama','like','%' .$filters['search']. '%')->orWhere('alamat','like','%'.$filters['search'].'%');
+       }
+       if(isset($filters['tujuan_id']) ? $filters ['tujuan_id'] : false) {
+        return $query->where('tujuan_id','like','%' .$filters['tujuan_id']. '%');
+       }
     }
 }
