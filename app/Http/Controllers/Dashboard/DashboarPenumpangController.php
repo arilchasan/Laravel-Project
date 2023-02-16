@@ -10,11 +10,11 @@ use Illuminate\Http\Request;
 class DashboarPenumpangController extends Controller
 {
     public function index()
-    { 
+    {   
         
        
         return view('dashboard.p', [
-            "daftar_penumpang" => PenumpangModels::filter(request(['search', 'tujuan_id']))->paginate(5)->appends(request()->only('tujuan_id','search')),
+            "daftar_penumpang" => PenumpangModels::filter(request(['search', 'tujuan_id']))->paginate(5)->appends(request()->all()),
             "tujuan" => Tujuan::all(),
         ]);
 
@@ -23,17 +23,19 @@ class DashboarPenumpangController extends Controller
     public function show(PenumpangModels $penumpang)
     {
         // return view('Penumpang.detail',compact('penumpang'));
-        return view('dashboard.penumpang.detail',[
+        return view('dashboard.penumpang.detail', [
             "penumpang" => $penumpang
         ]);
     }
-    
-    public function create(){
-        return view('dashboard.penumpang.create',[
+
+    public function create()
+    {
+        return view('dashboard.penumpang.create', [
             'tujuan' => Tujuan::all()
         ]);
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $validateData = $request->validate([
             'tujuan_id' => 'required',
             'no_pendaftaran' => 'required',
@@ -46,9 +48,10 @@ class DashboarPenumpangController extends Controller
         return redirect('/dashboard/p')->with('succes', 'Penumpang baru ditambahkan !');
     }
 
-    public function destroy(PenumpangModels $penumpang){
+    public function destroy(PenumpangModels $penumpang)
+    {
         PenumpangModels::destroy($penumpang->id);
-        return redirect('/dashboard/p')->with('succes','Data berhasil dihapus !');
+        return redirect('/dashboard/p')->with('succes', 'Data berhasil dihapus !');
     }
 
     public function edit(PenumpangModels $penumpang)
@@ -69,7 +72,7 @@ class DashboarPenumpangController extends Controller
             'alamat' => 'required',
         ];
 
-         $validateData = $request->validate($rules);
+        $validateData = $request->validate($rules);
 
         PenumpangModels::where('id', $penumpang->id)->update($validateData);
         return redirect('/dashboard/p')->with('succes', 'Data Penumpang berhasil diedit !');
@@ -82,13 +85,13 @@ class DashboarPenumpangController extends Controller
     {
         // function for search name 
         $search = request()->query('search');
-        
+
         if ($search) {
             // session(['search' => $search]);
-            $daftar_penumpang = PenumpangModels::where('nama','LIKE', "%{$search}%")
-            ->orWhere('no_pendaftaran','LIKE', "%{$search}%")
-            ->orWhere('tujuan_id','LIKE', "%{$search}%")->orWhere('tanggal','LIKE', "%{$search}%")->orWhere('alamat','LIKE', "%{$search}%")
-            ->paginate(5);
+            $daftar_penumpang = PenumpangModels::where('nama', 'LIKE', "%{$search}%")
+                ->orWhere('no_pendaftaran', 'LIKE', "%{$search}%")
+                ->orWhere('tujuan_id', 'LIKE', "%{$search}%")->orWhere('tanggal', 'LIKE', "%{$search}%")->orWhere('alamat', 'LIKE', "%{$search}%")
+                ->paginate(5);
             $daftar_penumpang->withPath('');
             $daftar_penumpang->appends(request()->all());
         } else {
@@ -98,13 +101,13 @@ class DashboarPenumpangController extends Controller
     }
 
 
-    public function scopeFilter($query , array $filters)
+    public function scopeFilter($query, array $filters)
     {
-       if(isset($filters['search']) ? $filters ['search'] : false) {
-        return $query->where('nama','like','%' .$filters['search']. '%')->orWhere('alamat','like','%'.$filters['search'].'%');
-       }
-       if(isset($filters['tujuan_id']) ? $filters ['tujuan_id'] : false) {
-        return $query->where('tujuan_id','like','%' .$filters['tujuan_id']. '%');
-       }
+        if (isset($filters['search']) ? $filters['search'] : false) {
+            return $query->where('nama', 'like', '%' . $filters['search'] . '%')->orWhere('alamat', 'like', '%' . $filters['search'] . '%');
+        }
+        if (isset($filters['tujuan_id']) ? $filters['tujuan_id'] : false) {
+            return $query->where('tujuan_id', 'like', '%' . $filters['tujuan_id'] . '%');
+        }
     }
 }

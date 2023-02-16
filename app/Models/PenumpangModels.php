@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PenumpangModels extends Model
 {
+    
     use HasFactory;
 
     // protected $fillable = ['no_pendaftaran','nama','tanggal','alamat'];
@@ -19,14 +20,18 @@ class PenumpangModels extends Model
 
     public function scopeFilter($query, array $filters)
     {
-           if(isset($filters['search']) ? $filters ['search'] : false) {
-            return $query->where('nama','like','%' .$filters['search']. '%')
-            ->orWhere('alamat','like','%'.$filters['search'].'%');
-           }
-           if(isset($filters['tujuan_id']) ? $filters ['tujuan_id'] : false) {
-            return $query->where('tujuan_id', $filters['tujuan_id']);
-           }
-       
 
+        if (isset($filters['tujuan_id'])) {
+            $query->where('tujuan_id', $filters['tujuan_id']);
+        } 
+
+        
+        if (isset($filters['search'])) {
+            $query->where('nama', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('alamat', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('tanggal', 'like', '%' . $filters['search'] . '%')
+                ->orWhere('no_pendaftaran', 'like', '%' . $filters['search'] . '%');
+        }
+        
     }
 }

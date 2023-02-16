@@ -59,6 +59,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="/login" class="bi bi-box-arrow-in-right">Login</a>
               </li>
+          </ul>
+          </li>
+              
          @endauth
     </ul>  
   
