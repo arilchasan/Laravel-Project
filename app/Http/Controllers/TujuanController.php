@@ -14,7 +14,7 @@ class TujuanController extends Controller
 
         
         return view('Tujuan.tampilan',[
-            "data_tujuan" => Tujuan::all(),
+            "data_tujuan" => Tujuan::paginate(2),
             
         ]); 
     }

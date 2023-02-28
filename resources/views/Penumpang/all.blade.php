@@ -1,57 +1,96 @@
 @extends('layouts.main')
 @section('container')
-
-    <h3 class="text-center" style="margin-top: 30px">Data Penumpang</h3>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="https://kit.fontawesome.com/76557bdb99.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/img/logbg.png" />
+    <link rel="stylesheet" href="{{ asset('/css/all.css') }}">
+        
+    <h3 class="text-center" style="margin-top: 30px;font-weight:bold">Data Penumpang</h3>
      @if (session()->has('succes'))
       <div class="alert alert-success col-lg-12" role="alert">
         {{session ('succes')}}
-      </div> 
-      
+      </div>       
      @endif 
-    <table class="table table-light table-striped text-left " >
-      {{-- <a href="create" class="btn btn-primary" role="button" style="width:120px,height:20px">Tambah Data</a> --}}
-      <br>
-    <br>
-            <tr class="text-center">
-         
-                <th><h5>ID</h5></th>
-                <th><h5>No Pendaftaran</h5></th>
-                <th><h5>Nama</h5></th>
-                <th><h5>Tanggal Keberangkatan</h5></th>
-                <th><h5>Alamat</h5></th>               
-                <th><h5>Action</h5></th>
-                
-            </tr>
-        </thead>
-        <tbody >
+     <table class="table table-light table-striped text-left " >
+     <div class="row">       
+        <div class="col-md-12 text-center">
+            <div class="row">
+                <form action="/Penumpang/all" method="GET">
+                    <div class="col-md-3">
+                        <select name="tujuan_id" class="form-select">
+                            <option selected value="" name="tujuan_id" style="text-align: center" id="tujuan_id">
+                                TUJUAN</option>
+
+                            @foreach ($tujuan as $class)
+                                @if (request('tujuan_id') == $class->id)
+                                    <option name="tujuan_id" value="{{ $class->id }}" selected>{{ $class->tujuan }}
+                                    </option>
+                                @else
+                                    <option name="tujuan_id" value="{{ $class->id }}">{{ $class->tujuan }}</option>
+                                @endif
+                            @endforeach
+
+                        </select>
+                    </div>
+
+                     <div class="col-md-7">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...." name="search"
+                                value="{{ request('search') }}">
+
+                            <div class="col-md-2"><button class="btn btn-dark" type="submit" style="margin-left: 2px"
+                                    id="button-addon2">Search</button></div>
+                        </div>
+                    </div>
+                </form>
+             
+                    <div class="col-md-2" >
+                        <a class="btn btn-outline-success" type="button" href="/Penumpang/all" >
+                          <i class="fa fa-refresh " aria-hidden="true"></i>
+                        </a>
+                    </div>
+          
+
+            </div>
+        </div>
+    </div>
+    
+    @if ($daftar_penumpang->count())
         
-            <?php foreach($daftar_penumpang as $penumpang) { ?>
-                <tr class="text-center">
-                    
-                    <th>{{$penumpang->id }}</li>
-                    <th>{{$penumpang->no_pendaftaran }}</li>
-                    <th>{{$penumpang->nama }}</li>
-                    <th>{{$penumpang->tanggal }}</li>
-                    <th>{{$penumpang->alamat }}</li>
-                 
-
-                    <td>
-                    <a type="button" class="btn btn-outline-info" href="detail/{{$penumpang->id}}" >Detail</a>
-                    
-                    {{-- <a type="button" class="btn btn-outline-info" href="detail/{{$penumpang->id}}" >Detail</a>
-                    <a type="button" class="btn btn-outline-success" href="edit/{{$penumpang->id}}" >Edit</a>
-                    <form action="/Penumpang/delete/{{$penumpang->id}}" method="post" class="d-inline">
-                      @method('delete')
-                      @csrf
-                      <button class="btn btn-outline-danger" onclick="return confirm('Yakin Mau Hapus ?')">Hapus</button>
-                    </form>  --}}
-                    </tr>  
-                                
-                    <?php } ?>
-                  </tbody>
-                </table>
+    
+     <div class="row">
+                <?php foreach($daftar_penumpang as $penumpang) { ?>
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card border-black">
+                           <div class="card-img-top" style="text-align: center;padding:20px">{!! QrCode::size(200)->generate('wa.me/6282243460612') !!}</div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{$penumpang->nama}}</h5>
+                                <hr>
+                                <div class="row">                          
+                                    <div class="col-sm-8">
+                                            <p class="card-text">No Pendaftaran: {{$penumpang->no_pendaftaran}}</p>
+                                            <span class="card-text">{{$penumpang->tanggal}}</span>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <a  class="btn btn-outline-warning" align="" href="/Penumpang/detail/ {{$penumpang->id}}" >Detail</a>
+                                        </div>
+                                    </div>  
+                            </div>
+                        </div>
+                      
+                    </div>
+                  <?php } ?>
+                </div>
+                @else
+                <div class="alert alert-danger col-lg-12" role="alert" style="margin-top: 10px">
+                    Data Tidak Ditemukan
+                  </div>
+                @endif
                 {{ $daftar_penumpang->links('pagination::bootstrap-5')}}  
-
+<script src="https://kit.fontawesome.com/76557bdb99.js" crossorigin="anonymous"></script>
 @endsection
 
 

@@ -63,9 +63,7 @@
 
                 </div>
             </div>
-
-
-            <br>
+        </div>
             <br>
             <tr class="text-center" style="font-family: 'Poppins';">
 
@@ -85,6 +83,9 @@
                     <h5>Alamat</h5>
                 </th>
                 <th>
+                    <h5>QR CODE</h5>
+                </th>
+                <th>
                     <h5>Action</h5>
                 </th>
 
@@ -101,6 +102,7 @@
                         <th style="font-family: 'Montserrat';">{{ $penumpang->nama }}</li>
                         <th style="font-family: 'Montserrat';">{{ $penumpang->tanggal }}</li>
                         <th style="font-family: 'Montserrat';">{{ $penumpang->alamat }}</li>
+                        <th >{!! QrCode::size(60)->generate('{{$penumpang->nama}}') !!}</li>
 
 
                         <td>
@@ -122,7 +124,7 @@
             @else
                 <tbody> 
                     <tr>
-                        <td colspan="6" align="center">Data tidak ditemukan</td>
+                        <td colspan="8" align="center">Data tidak ditemukan</td>
                     </tr>
                 </tbody>
             @endif

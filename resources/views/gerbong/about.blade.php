@@ -1,12 +1,10 @@
 @extends('layouts.main')
 @section('container')
-
-    <h3 class="text-center" style="margin-top: 30px">Daftar Gerbong</h3>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <h3 class="text-center" style="margin-top: 30px;font-weight:bold">Daftar Gerbong</h3>
     
     <table class="table table-light table-striped text-left " >
 
-      <br>
-    <br>
             <tr class="text-center"> 
                 <th><h5>Kode</h5></th>
                 <th><h5>Nama</h5></th>

@@ -21,18 +21,12 @@
                 <input type="date" class="form-control" id="tanggal" name="tanggal"
                     value="{{ old('tanggal') }}">
             </div>        
-            {{-- <label for="tanggal" class="form-label">Tanggal Keberangkatan</label>
-        <input class="date form-control" style="width: 250px;" placeholder="YYYY-MM-DD" type="date" >  
-            <script type="text/javascript">  
-                $('.date').datepicker({  
-                format: 'mm-dd-yyyy'  
-                });  
-            </script>  --}}
+      
             <div class="mb-3">
                 <label for="" class="form-label">Tujuan</label>
                 <select class="form-select" name="tujuan_id" id="">
                     @foreach ($tujuan as $class)
-                        <option name="tujuan_id" value="{{ $class->id }}">{{ $class->tujuan }}></option>
+                        <option name="tujuan_id" value="{{ $class->id }}">{{ $class->tujuan }}</option>
                     @endforeach
                 </select>
             </div>

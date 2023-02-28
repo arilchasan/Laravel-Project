@@ -4,16 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\PenumpangModels;
 use App\Models\Tujuan;
+use BaconQrCode\Encoder\QrCode;
+use BaconQrCode\Renderer\Image\Png;
+use Dflydev\DotAccessData\Data;
+use Faker\Core\Color;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use PhpParser\Node\Stmt\Label;
+use SimpleSoftwareIO\QrCode\Facades\QrCode as FacadesQrCode;
+use Termwind\Components\Raw;
 
 class PenumpangController extends Controller
 {
     public function index()
-    {
-
-        
+    {   
         return view('Penumpang.all',[
-            "daftar_penumpang" => PenumpangModels::paginate(5)
+            "daftar_penumpang" => PenumpangModels::filter(request(['search', 'tujuan_id']))->paginate(6)->appends(request()->all()),
+            "tujuan" => Tujuan::all(),
+       
         ]); 
     }
     public function show(PenumpangModels $penumpang)
@@ -74,4 +82,8 @@ class PenumpangController extends Controller
         // $penumpang->update($request->except(['submit']));
         // return redirect('/Penumpang/all');
     }
+
+        
+   
+    
 }

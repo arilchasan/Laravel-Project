@@ -31,7 +31,7 @@ class DashboardController extends Controller
     public function t()
     {
         return view('dashboard.t', [
-            "data_tujuan" => Tujuan::all(),           
+            "data_tujuan" => Tujuan::paginate(2),           
         ]); 
     }
     public function g()

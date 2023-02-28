@@ -50,7 +50,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 
 Route::group(["prefix" => "/Penumpang"],function(){
-    Route::get('/all' ,[PenumpangController::class,'index']);
+    Route::get('/all' ,[PenumpangController::class,'index'])->name('generate');
     Route::get('/detail/{penumpang}' ,[PenumpangController::class,'show']);
     Route::get('/create',[PenumpangController::class,'create']);    
     Route::post('/add',[PenumpangController::class,'store']);
@@ -101,10 +101,10 @@ Route::group(["prefix" => "/dashboard"],function(){
     //route sidebar  
     
     Route::get('/search' ,[DashboarPenumpangController::class,'search']);
-    Route::get('/p' ,[DashboarPenumpangController::class,'index']);
+    Route::get('/p' ,[DashboarPenumpangController::class,'index'])->middleware('auth');
     Route::get('/drop' ,[DashboarPenumpangController::class,'filter']);
-    Route::get('/t' ,[DashboardController::class,'t']);
-    Route::get('/g' ,[DashboardController::class,'g']);
+    Route::get('/t' ,[DashboardController::class,'t'])->middleware('auth');
+    Route::get('/g' ,[DashboardController::class,'g'])->middleware('auth');
 });
 
 // Route::group(["prefix" => "/gerbong"],function(){

@@ -13,7 +13,7 @@
 <table class="table table-light table-striped text-left " >
 
   <br>
-<br>
+
         <tr class="text-center" style="font-family: 'Poppins';">
             <th><h5>Kode</h5></th>
             <th><h5>Kereta</h5></th>
@@ -49,6 +49,8 @@
                   <button class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin ?')">Hapus</button>
                 </form> 
                 </tr>   --}}
-                            
-                <?php } ?> 
+    </tbody>
+    <?php } ?> 
+</table>
+{{ $data_tujuan->links('pagination::bootstrap-5') }}           
 @endsection

@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Hugo 0.108.0">
-        <title>Signin Template · Bootstrap v5.3</title>
+        <link rel="stylesheet" href="{{ asset('/css/log.css') }}">
 
         <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 
@@ -29,8 +29,32 @@
     </head>
 
     <body class="text-center">
-
-        <main class="form-signin w-100 m-auto">
+        <div class="wrapper">
+            <h2>Daftar</h2>
+            <form method="post" action="/register/add">
+                @csrf
+              <div class="input-box">
+                <input type="text" placeholder="Username" name="name"
+                value="{{ old('name') }}" required>
+              </div>
+              <div class="input-box">
+                <input type="email" placeholder="Email" name="email" value="{{ old('email') }}" required>
+              </div>
+              <div class="input-box">
+                <input type="password" placeholder="Password" name="password"
+                value="{{ old('password') }}" required>
+              </div>
+              
+              
+              <div class="input-box button">
+                <input type="Submit" value="Daftar">
+              </div>
+              <div class="text">
+                <h3>Sudah punya akun? <a href="/login">Login</a></h3>
+              </div>
+            </form>
+          </div>
+        {{-- <main class="form-signin w-100 m-auto">
             <form method="post" action="/register/add">
                 @csrf
                 <h1 class="h3 mt-5 mb-3 fw-normal">Register</h1>
@@ -54,7 +78,7 @@
                 <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
                
             </form>
-        </main>
+        </main> --}}
 
 
 

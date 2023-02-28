@@ -20,7 +20,7 @@ class PenumpangModelsFactory extends Factory
             'tujuan_id' => mt_rand(1,5),
             'no_pendaftaran' => fake()->numerify('######'),
             'nama' => fake()->name(),   
-            'tanggal' => fake()->dateTimeBetween($startDate = '-3 days', $endDate = '+60 days'),
+            'tanggal' => fake()->dateTimeBetween($startDate = '-3 days','+60 days'),
             'alamat' => fake()->address(),
         ];
     }

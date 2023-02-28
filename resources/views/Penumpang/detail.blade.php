@@ -25,6 +25,11 @@
         <label for="" class="form-label">Tanggal Keberangkatan</label>
         <input type="text" class="form-control" id="tanggal" value="{{$penumpang["tanggal"]}}" readonly>
       </div>
+  
+      {!! QrCode::size(100)->generate('wa.me/6282243460612') !!}
+          
+      
+    
    
 
 </form>
